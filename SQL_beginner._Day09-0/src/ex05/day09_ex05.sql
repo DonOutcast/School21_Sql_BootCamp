@@ -2,7 +2,7 @@ DROP FUNCTION IF EXISTS fnc_persons_male;
 DROP FUNCTION IF EXISTS fnc_persons_female;
 
 
-CREATE OR REPLACE FUNCTION fnc_persons(pgender varchar DEFAULT 'female')
+CREATE OR REPLACE FUNCTION fnc_persons(IN pgender varchar DEFAULT 'female')
     RETURNS TABLE
             (
                 id      bigint,

@@ -1,7 +1,9 @@
+DROP TABLE IF EXISTS person_audit;
+
 CREATE TABLE IF NOT EXISTS person_audit
 (
-    created    timestamp NOT NULL DEFAULT now(),
-    type_event char(1)   NOT NULL DEFAULT 'D',
+    created    timestamp with time zone NOT NULL DEFAULT now(),
+    type_event char(1)   NOT NULL DEFAULT 'I',
     row_id     bigint    NOT NULL,
     name       varchar,
     age        integer,
@@ -28,3 +30,4 @@ CREATE TRIGGER trg_person_insert_audit
 EXECUTE FUNCTION fnc_trg_person_insert_audit();
 
 INSERT INTO person(id, name, age, gender, address) VALUES (10,'Damir', 22, 'male', 'Irkutsk');
+SELECT * FROM person_audit;
