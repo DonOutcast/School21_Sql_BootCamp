@@ -1,12 +1,14 @@
-CREATE OR REPLACE FUNCTION fib(f integer) 
+CREATE OR REPLACE FUNCTION fnc_fibonacci(pstop integer DEFAULT 10)
 RETURNS SETOF integer
-LANGUAGE SQL
-AS $$
-WITH RECURSIVE t(a,b) AS (
-        VALUES(0,1)
-    UNION ALL
-        SELECT greatest(a,b), a + b as a from t
-        WHERE b < $1
-   )
-SELECT a FROM t;
-$$;
+    AS $$
+        WITH RECURSIVE fibonacci(a, b) AS (
+                VALUES (0, 1)
+            UNION ALL
+                SELECT b, a + b FROM fibonacci
+                WHERE b < pstop
+        )
+        SELECT a FROM fibonacci;
+    $$ LANGUAGE sql;
+
+SELECT * FROM fnc_fibonacci(100);
+SELECT * FROM fnc_fibonacci();
